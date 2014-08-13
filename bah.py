@@ -168,6 +168,7 @@ print ("data file will be saved as %s.txt" % (date))
 raw_input("Put on safety goggles. Hit Enter to begin taking data: ")
 prep()
 print "FLASHLAMP ON"
+print "Now is your chance to adjust the ablation laser alignment. Use the q-switch button on the laser ICE."
 datacontrol = True
 #plot setup
 x=list()

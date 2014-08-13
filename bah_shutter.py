@@ -222,13 +222,14 @@ print ("data file will be saved as %s.txt" % (date))
 raw_input("Put on safety goggles. Hit Enter to begin taking data: ")
 prep()
 print "FLASHLAMP ON"
+print "Now is your chance to adjust the ablation laser alignment. Use the q-switch button on the laser ICE."
 datacontrol = True
 #plot setup
 x=list()
 y=list()
 plt.ion()
 plt.show()
-shutterstate = False
+shutterstate = False #Shutter is open(pump beam goes through)
 	
 while datacontrol:
 	if shutterstate:
@@ -263,6 +264,7 @@ while datacontrol:
 	q = raw_input("Type 'quit' to quit. 'newfile' for new file. 'pause' to pause laser. 's' for keep shutter state. Return for next. ")
 	if 'quit' in q:
 		stop()
+		advancedServo.setPosition(0, advancedServo.getPositionMin(0))
 		datacontrol=False
 	if 'newfile' in q:
 		stop()
@@ -271,6 +273,8 @@ while datacontrol:
 		print ("data file will be saved as %s.txt" % (date))
 		raw_input("Put on safety goggles. Hit Enter to begin taking data: ")
 		prep()
+		shutterstate = False
+		advancedServo.setPosition(0, advancedServo.getPositionMin(0))
 	if 'pause' in q:
 		stop()
 		raw_input("Hit Enter to resume measurements. ")
