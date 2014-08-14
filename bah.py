@@ -21,6 +21,7 @@ import os
 import numpy as np
 import visa
 import matplotlib.pyplot as plt
+import matplotlib.cm as cm
 
 #Get the list of instruments connected to the computer.
 insts= visa.get_instruments_list()
@@ -175,6 +176,9 @@ x=list()
 y=list()
 plt.ion()
 plt.show()
+colors = ['b','r','g','c','m','y','k']
+cdex = 0 #color index
+pltcolor=colors[cdex]
 	
 while datacontrol:
 	wavel = raw_input('Enter Wavelength: ')
@@ -189,7 +193,7 @@ while datacontrol:
 		try:
 			x.append(float(wavel))
 			y.append(ydat)
-			plt.scatter(float(wavel),ydat)
+			plt.scatter(float(wavel),ydat,color = pltcolor)
 			#time.sleep(0.0001)
 			plt.pause(0.001)
 			plt.draw()
@@ -204,6 +208,11 @@ while datacontrol:
 		datacontrol=False
 	if 'newfile' in q:
 		stop()
+		if cdex is 6:
+			cdex=0
+		else:
+			cdex=cdex+1
+		pltcolor=colors[cdex]
 		date = raw_input("Enter filename(no '.txt'): ")
 		numb = raw_input('How many averages? ')
 		print ("data file will be saved as %s.txt" % (date))
